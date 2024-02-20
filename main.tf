@@ -33,14 +33,14 @@ resource "aws_security_group" "sg" {
 }
 
 resource "aws_launch_template" "template" {
-  name_prefix = "${var.name}-${var.name.env}-lt"
+  name = "${var.name}-${var.env}-lt"
   image_id = data.aws_ami.ami.id
   instance_type = var.instance_type
   vpc_security_group_ids = [aws_security_group.sg.id]
 }
 
 resource "aws_autoscaling_group" "asg" {
-  name = "${var.name}-${var.name.env}-asg"
+  name = "${var.name}-${var.env}-asg"
   desired_capacity = var.desired_capacity
   max_size = var.max_size
   min_size = var.min_size
