@@ -5,8 +5,8 @@ resource "aws_security_group" "sg" {
 
   ingress {
     description = "APP"
-    from_port = 8080
-    to_port = 8080
+    from_port = var.app_port
+    to_port = var.app_port
     protocol = "tcp"
     cidr_blocks = var.allow_app_cidr
   }
@@ -80,4 +80,12 @@ resource "aws_lb_listener_rule" "rule" {
       values = [local.dns_name]
     }
   }
+}
+
+resource "aws_route53_record" "main" {
+  name    = local.dns_name
+  type    = "CNAME"
+  zone_id = var.domain_id
+  ttl = 30
+  records = [var.lb_dns_name]
 }
