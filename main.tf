@@ -77,7 +77,7 @@ resource "aws_autoscaling_group" "asg" {
 }
 
 resource "aws_autoscaling_policy" "asg-cpu-rule" {
-  autoscaling_group_name = "aws_autoscaling_group.asg.name"
+  autoscaling_group_name = aws_autoscaling_group.asg.name
   name                   = "CPULoadDetect"
   policy_type = "TargetTrackingScaling"
   target_tracking_configuration {
